@@ -1,0 +1,46 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: fix/updatego
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/cessda/cessda.cdc.versions:
+      branch: main
+      repo: https://github.com/cessda/cessda.cdc.versions
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/cessda/cessda.cdc.versions git:
+        commands:
+        - /usr/bin/env sh .sqa/script.brown_organized_rattlesnake.sh
+        container: qc.acc_jade_sweet_finch
+  QC.Doc:
+    repos:
+      github.com/cessda/cessda.cdc.versions find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.teal_generous_komodo.sh
+        container: qc.doc_cobalt_stoic_marmoset
+      github.com/cessda/cessda.cdc.versions git:
+        commands:
+        - /usr/bin/env sh .sqa/script.zinnia_confused_hydra.sh
+        container: qc.doc_slate_hopeful_butterfly
+      github.com/cessda/cessda.cdc.versions markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.emerald_feisty_salamander.sh
+        container: qc.doc_yellow_wondrous_heron
+  QC.Lic:
+    repos:
+      github.com/cessda/cessda.cdc.versions licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.clove_focused_donkey.sh
+        container: qc.lic_mustard_diligent_vulture
+  QC.Ver:
+    repos:
+      github.com/cessda/cessda.cdc.versions get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.cherry_dedicated_flounder.sh
+        container: qc.ver_amaranth_alert_dhole
+timeout: 5400
